@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0b041a;
+            --glass-bg: rgba(70, 30, 120, 0.15);
+            --glass-border: rgba(120, 80, 200, 0.3);
+            --neon-glow: 0 8px 32px 0 rgba(110, 50, 200, 0.5);
+            --text-main: #e0d4f5;
+            --text-highlight: #a875ff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: linear-gradient(135deg, #05020a, #13062b, #0c122e);
+            background-attachment: fixed;
+            color: var(--text-main);
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* --- Intro Screen & Gift Box --- */
+        #intro-screen {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(5, 2, 10, 0.95);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .intro-text {
+            font-family: 'Caveat', cursive;
+            font-size: 2.5rem;
+            color: var(--text-highlight);
+            margin-bottom: 30px;
+            text-shadow: 0 0 10px rgba(168, 117, 255, 0.5);
+        }
+
+        .gift-box {
+            position: relative;
+            width: 120px;
+            height: 100px;
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(106, 17, 203, 0.6);
+            animation: bounce 2s infinite;
+        }
+
+        .gift-lid {
+            position: absolute;
+            top: -20px; left: -10px; width: 140px; height: 30px;
+            background: linear-gradient(to right, #7a22db, #3585fc);
+            border-radius: 5px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transition: transform 0.5s ease;
+        }
+
+        .gift-ribbon-v {
+            position: absolute;
+            top: -20px; left: 50%; transform: translateX(-50%);
+            width: 20px; height: 120px;
+            background: #ff7eb3;
+        }
+
+        .gift-ribbon-h {
+            position: absolute;
+            top: 30px; left: -10px;
+            width: 140px; height: 20px;
+            background: #ff7eb3;
+        }
+
+        .gift-bow {
+            position: absolute;
+            top: -40px; left: 50%; transform: translateX(-50%);
+            width: 60px; height: 30px;
+            background: transparent;
+            border: 8px solid #ff7eb3;
+            border-radius: 50px 50px 0 0;
+            transition: transform 0.5s ease;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        /* --- Main Content Layout --- */
+        #main-content {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 1.5s ease-in-out;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        /* --- Frosted Glass Containers --- */
+        .glass-panel {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: var(--neon-glow);
+        }
+
+        /* --- Typewriter Section --- */
+        h1 {
+            font-family: 'Caveat', cursive;
+            font-size: 3.5rem;
+            color: #fff;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .highlight {
+            color: var(--text-highlight);
+        }
+
+        #typewriter-text {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            min-height: 100px; /* Prevents layout shifting */
+        }
+        
+        .cursor {
+            display: inline-block;
+            width: 3px;
+            background-color: var(--text-highlight);
+            animation: blink 0.8s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* --- Letter Section --- */
+        .letter-content {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            text-align: justify;
+        }
+
+        .letter-signoff {
+            font-family: 'Caveat', cursive;
+            font-size: 2rem;
+            color: var(--text-highlight);
+            text-align: right;
+            margin-top: 20px;
+        }
+
+        /* --- Photo Gallery --- */
+        .gallery-title {
+            text-align: center;
+            font-family: 'Caveat', cursive;
+            font-size: 3rem;
+            margin-bottom: 30px;
+            color: var(--text-highlight);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .polaroid {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--glass-border);
+            padding: 15px 15px 30px 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            cursor: pointer;
+        }
+
+        .polaroid:nth-child(odd) { transform: rotate(-3deg); }
+        .polaroid:nth-child(even) { transform: rotate(3deg); }
+
+        .polaroid:hover {
+            transform: scale(1.05) rotate(0deg);
+            box-shadow: 0 10px 40px rgba(106, 17, 203, 0.8);
+            z-index: 10;
+        }
+
+        .polaroid img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        .polaroid-caption {
+            font-family: 'Caveat', cursive;
+            font-size: 1.5rem;
+            text-align: center;
+            color: var(--text-main);
+        }
+
+        /* --- Interactive Floating Hearts --- */
+        .floating-heart {
+            position: absolute;
+            font-size: 1.5rem;
+            pointer-events: none;
+            animation: floatUp 1.5s ease-out forwards;
+            filter: drop-shadow(0 0 8px rgba(168, 117, 255, 0.8));
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            100% { transform: translateY(-100px) scale(1.5); opacity: 0; }
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 600px) {
+            h1 { font-size: 2.5rem; }
+            .glass-panel { padding: 25px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Intro Screen (Click to Open Gift) -->
+    <div id="intro-screen">
+        <div class="intro-text">Click the gift to open!</div>
+        <div class="gift-box" onclick="openGift()">
+            <div class="gift-ribbon-v"></div>
+            <div class="gift-ribbon-h"></div>
+            <div class="gift-lid" id="lid"></div>
+            <div class="gift-bow" id="bow"></div>
+        </div>
+    </div>
+
+    <!-- Main Website Content -->
+    <div id="main-content">
+        
+        <!-- FIRST SECTION: Typewriter Message -->
+        <div class="glass-panel">
+            <!-- CUSTOMIZE: Change the Name here -->
+            <h1>Happy Birthday, <span class="highlight">Bestie!</span> 🎂</h1>
+            <div id="typewriter-text"></div>
+        </div>
+
+        <!-- SECOND SECTION: Extra Letter Space -->
+        <div class="glass-panel">
+            <div class="letter-content">
+                <!-- CUSTOMIZE: Write a longer message or memory here -->
+                I wanted to make something special for you this year. Thank you for always being there for me, for the late-night talks, the endless laughter, and for just being the amazing person that you are. I hope this year brings you as much happiness as you bring to everyone around you. May all your dreams come true and your days be filled with love, success, and lots of cake!
+            </div>
+            <!-- CUSTOMIZE: Your sign off -->
+            <div class="letter-signoff">- With lots of love, Your Name 💜</div>
+        </div>
+
+        <!-- THIRD SECTION: Photo Gallery (6 Pictures) -->
+        <div class="gallery-title">Our Favorite Moments ✨</div>
+        <div class="gallery-grid">
+            
+            <!-- PHOTO 1 -->
+            <div class="polaroid">
+                <!-- CUSTOMIZE: Change "image1.jpg" to your image link/name -->
+                <img src="https://images.unsplash.com/photo-1517456793572-1d8efd6dc135?auto=format&fit=crop&w=500&q=60" alt="Memory 1">
+                <!-- CUSTOMIZE: Change the caption under the picture -->
+                <div class="polaroid-caption">That one crazy night out! 🌃</div>
+            </div>
+
+            <!-- PHOTO 2 -->
+            <div class="polaroid">
+                <!-- CUSTOMIZE: Change "image2.jpg" to your image link/name -->
+                <img src="https://images.unsplash.com/photo-1529156069898-49953eb1b5ae?auto=format&fit=crop&w=500&q=60" alt="Memory 2">
+                <div class="polaroid-caption">Always laughing together 😂</div>
+            </div>
+
+            <!-- PHOTO 3 -->
+            <div class="polaroid">
+                <!-- CUSTOMIZE: Change "image3.jpg" to your image link/name -->
+                <img src="https://images.unsplash.com/photo-1506869640319-baa1f2d26fdf?auto=format&fit=crop&w=500&q=60" alt="Memory 3">
+                <div class="polaroid-caption">Core memory unlocked 🔓</div>
+            </div>
+
+            <!-- PHOTO 4 -->
+            <div class="polaroid">
+                <!-- CUSTOMIZE: Change "image4.jpg" to your image link/name -->
+                <img src="https://images.unsplash.com/photo-1523456722899-73893693246a?auto=format&fit=crop&w=500&q=60" alt="Memory 4">
+                <div class="polaroid-caption">Selfie queens 👑</div>
+            </div>
+
+            <!-- PHOTO 5 -->
+            <div class="polaroid">
+                <!-- CUSTOMIZE: Change "image5.jpg" to your image link/name -->
+                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=500&q=60" alt="Memory 5">
+                <div class="polaroid-caption">Matching outfits vibes ✨</div>
+            </div>
+
+            <!-- PHOTO 6 -->
+            <div class="polaroid">
+                <!-- CUSTOMIZE: Change "image6.jpg" to your image link/name -->
+                <img src="https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=500&q=60" alt="Memory 6">
+                <div class="polaroid-caption">To many more years! 🥂</div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- JavaScript for Interactivity -->
+    <script>
+        // CUSTOMIZE: Change the message that gets typed out automatically
+        const messageToType = "Wishing you the happiest of birthdays! You deserve all the stars in the galaxy today. I made this little website just for you because a normal greeting card just wasn't enough. Enjoy your special day! 🥳";
+        
+        let i = 0;
+        const speed = 50; // typing speed in milliseconds
+
+        function typeWriter() {
+            if (i < messageToType.length) {
+                document.getElementById("typewriter-text").innerHTML = messageToType.substring(0, i + 1) + '<span class="cursor"></span>';
+                i++;
+                setTimeout(typeWriter, speed);
+            } else {
+                document.getElementById("typewriter-text").innerHTML = messageToType; // remove cursor at the end
+            }
+        }
+
+        // Open Gift Function
+        function openGift() {
+            // Animate lid flying off
+            document.getElementById('lid').style.transform = 'translateY(-100px) rotate(20deg) scale(1.2)';
+            document.getElementById('lid').style.opacity = '0';
+            document.getElementById('bow').style.transform = 'translateY(-100px) rotate(20deg) scale(1.2)';
+            document.getElementById('bow').style.opacity = '0';
+            
+            // Fade out intro, fade in main site
+            setTimeout(() => {
+                document.getElementById('intro-screen').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('intro-screen').style.display = 'none';
+                    const mainContent = document.getElementById('main-content');
+                    mainContent.style.opacity = '1';
+                    mainContent.style.pointerEvents = 'auto';
+                    
+                    // Start typewriter effect after site reveals
+                    setTimeout(typeWriter, 500);
+                }, 1000);
+            }, 600);
+        }
+
+        // Interactive Magic Hearts on Click
+        document.addEventListener('click', function(e) {
+            // Don't spawn hearts if clicking the gift intro
+            if(document.getElementById('intro-screen').style.display !== 'none') return;
+
+            const heart = document.createElement('div');
+            heart.classList.add('floating-heart');
+            
+            // Randomly choose between a heart or sparkle emoji
+            const emojis = ['💜', '💙', '✨', '💖'];
+            heart.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+            
+            heart.style.left = (e.clientX - 15) + 'px';
+            heart.style.top = (e.clientY - 15) + 'px';
+            
+            document.body.appendChild(heart);
+            
+            // Remove the element after animation ends
+            setTimeout(() => {
+                heart.remove();
+            }, 1500);
+        });
+    </script>
+</body>
+</html>
