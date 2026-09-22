@@ -140,7 +140,7 @@
         #typewriter-text {
             font-size: 1.2rem;
             line-height: 1.8;
-            min-height: 100px; /* Prevents layout shifting */
+            min-height: 100px; 
         }
         
         .cursor {
@@ -220,13 +220,71 @@
             color: var(--text-main);
         }
 
-        /* --- Interactive Floating Hearts --- */
+        /* --- Pop-up Modal for Polaroids --- */
+        #polaroid-modal {
+            display: none; 
+            position: fixed; 
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(5, 2, 10, 0.85); 
+            z-index: 200;
+            justify-content: center; 
+            align-items: center; 
+            opacity: 0; 
+            transition: opacity 0.4s ease;
+            cursor: pointer;
+        }
+
+        .modal-content {
+            background: var(--glass-bg); 
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border); 
+            padding: 20px 20px 40px 20px; 
+            border-radius: 15px;
+            max-width: 90%; 
+            max-height: 90vh; 
+            text-align: center;
+            box-shadow: var(--neon-glow); 
+            position: relative;
+            cursor: default;
+            transform: scale(0.8);
+            transition: transform 0.4s ease;
+        }
+
+        #polaroid-modal.show .modal-content {
+            transform: scale(1) rotate(0deg);
+        }
+
+        #modal-img { 
+            max-width: 100%; 
+            max-height: 50vh; 
+            border-radius: 10px; 
+            object-fit: cover;
+            margin-bottom: 15px;
+        }
+        
+        #modal-caption {
+            font-family: 'Caveat', cursive;
+            font-size: 2.5rem;
+            color: var(--text-highlight);
+            margin-bottom: 10px;
+        }
+
+        #modal-extra-msg { 
+            font-size: 1.1rem; 
+            color: var(--text-main); 
+            font-weight: 300;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        /* --- Interactive & Rain Emojis --- */
         .floating-heart {
             position: absolute;
             font-size: 1.5rem;
             pointer-events: none;
             animation: floatUp 1.5s ease-out forwards;
             filter: drop-shadow(0 0 8px rgba(168, 117, 255, 0.8));
+            z-index: 50;
         }
 
         @keyframes floatUp {
@@ -234,7 +292,21 @@
             100% { transform: translateY(-100px) scale(1.5); opacity: 0; }
         }
 
-        /* Mobile Adjustments */
+        #emoji-rain-container {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 250;
+        }
+
+        .falling-emoji {
+            position: absolute; top: -50px; font-size: 2rem;
+            animation: fall linear forwards;
+            filter: drop-shadow(0 0 10px rgba(168, 117, 255, 0.6));
+        }
+
+        @keyframes fall {
+            to { transform: translateY(110vh) rotate(360deg); }
+        }
+
         @media (max-width: 600px) {
             h1 { font-size: 2.5rem; }
             .glass-panel { padding: 25px; }
@@ -259,7 +331,6 @@
         
         <!-- FIRST SECTION: Typewriter Message -->
         <div class="glass-panel">
-            <!-- CUSTOMIZE: Change the Name here -->
             <h1>Happy Birthday, <span class="highlight">Bestie!</span> 🎂</h1>
             <div id="typewriter-text"></div>
         </div>
@@ -267,10 +338,8 @@
         <!-- SECOND SECTION: Extra Letter Space -->
         <div class="glass-panel">
             <div class="letter-content">
-                <!-- CUSTOMIZE: Write a longer message or memory here -->
                 I wanted to make something special for you this year. Thank you for always being there for me, for the late-night talks, the endless laughter, and for just being the amazing person that you are. I hope this year brings you as much happiness as you bring to everyone around you. May all your dreams come true and your days be filled with love, success, and lots of cake!
             </div>
-            <!-- CUSTOMIZE: Your sign off -->
             <div class="letter-signoff">- With lots of love, Your Name 💜</div>
         </div>
 
@@ -279,44 +348,38 @@
         <div class="gallery-grid">
             
             <!-- PHOTO 1 -->
-            <div class="polaroid">
-                <!-- CUSTOMIZE: Change "image1.jpg" to your image link/name -->
+            <!-- CUSTOMIZE: Change data-extramsg to write your secret message! -->
+            <div class="polaroid" onclick="openPolaroid(this)" data-extramsg="I remember this day so clearly. We couldn't stop laughing at dinner!">
                 <img src="https://images.unsplash.com/photo-1517456793572-1d8efd6dc135?auto=format&fit=crop&w=500&q=60" alt="Memory 1">
-                <!-- CUSTOMIZE: Change the caption under the picture -->
                 <div class="polaroid-caption">That one crazy night out! 🌃</div>
             </div>
 
             <!-- PHOTO 2 -->
-            <div class="polaroid">
-                <!-- CUSTOMIZE: Change "image2.jpg" to your image link/name -->
+            <div class="polaroid" onclick="openPolaroid(this)" data-extramsg="You always know how to make me smile even when I'm down.">
                 <img src="https://images.unsplash.com/photo-1529156069898-49953eb1b5ae?auto=format&fit=crop&w=500&q=60" alt="Memory 2">
                 <div class="polaroid-caption">Always laughing together 😂</div>
             </div>
 
             <!-- PHOTO 3 -->
-            <div class="polaroid">
-                <!-- CUSTOMIZE: Change "image3.jpg" to your image link/name -->
+            <div class="polaroid" onclick="openPolaroid(this)" data-extramsg="Definitely going to tell our kids about this trip one day.">
                 <img src="https://images.unsplash.com/photo-1506869640319-baa1f2d26fdf?auto=format&fit=crop&w=500&q=60" alt="Memory 3">
                 <div class="polaroid-caption">Core memory unlocked 🔓</div>
             </div>
 
             <!-- PHOTO 4 -->
-            <div class="polaroid">
-                <!-- CUSTOMIZE: Change "image4.jpg" to your image link/name -->
+            <div class="polaroid" onclick="openPolaroid(this)" data-extramsg="We took about 50 photos before we got this perfect one haha.">
                 <img src="https://images.unsplash.com/photo-1523456722899-73893693246a?auto=format&fit=crop&w=500&q=60" alt="Memory 4">
                 <div class="polaroid-caption">Selfie queens 👑</div>
             </div>
 
             <!-- PHOTO 5 -->
-            <div class="polaroid">
-                <!-- CUSTOMIZE: Change "image5.jpg" to your image link/name -->
+            <div class="polaroid" onclick="openPolaroid(this)" data-extramsg="We didn't even plan to match this day, it was pure fate!">
                 <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=500&q=60" alt="Memory 5">
                 <div class="polaroid-caption">Matching outfits vibes ✨</div>
             </div>
 
             <!-- PHOTO 6 -->
-            <div class="polaroid">
-                <!-- CUSTOMIZE: Change "image6.jpg" to your image link/name -->
+            <div class="polaroid" onclick="openPolaroid(this)" data-extramsg="I am so lucky to have you in my life. Let's make more memories!">
                 <img src="https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=500&q=60" alt="Memory 6">
                 <div class="polaroid-caption">To many more years! 🥂</div>
             </div>
@@ -324,13 +387,29 @@
         </div>
     </div>
 
+    <!-- Hidden pop-up container for the polaroids -->
+    <div id="polaroid-modal" onclick="closePolaroid(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <img id="modal-img" src="" alt="">
+            <div id="modal-caption"></div>
+            <div id="modal-extra-msg"></div>
+        </div>
+    </div>
+
+    <!-- Container for emoji rain -->
+    <div id="emoji-rain-container"></div>
+
+    <!-- Background Music -->
+    <audio id="bg-music" loop>
+        <source src="song.mp3" type="audio/mpeg">
+    </audio>
+
     <!-- JavaScript for Interactivity -->
     <script>
-        // CUSTOMIZE: Change the message that gets typed out automatically
         const messageToType = "Wishing you the happiest of birthdays! You deserve all the stars in the galaxy today. I made this little website just for you because a normal greeting card just wasn't enough. Enjoy your special day! 🥳";
         
         let i = 0;
-        const speed = 50; // typing speed in milliseconds
+        const speed = 50; 
 
         function typeWriter() {
             if (i < messageToType.length) {
@@ -338,19 +417,21 @@
                 i++;
                 setTimeout(typeWriter, speed);
             } else {
-                document.getElementById("typewriter-text").innerHTML = messageToType; // remove cursor at the end
+                document.getElementById("typewriter-text").innerHTML = messageToType; 
             }
         }
 
         // Open Gift Function
         function openGift() {
-            // Animate lid flying off
+            // Play music (will only work if you uploaded song.mp3)
+            let audio = document.getElementById("bg-music");
+            if(audio) audio.play().catch(e => console.log("Music play prevented by browser"));
+            
             document.getElementById('lid').style.transform = 'translateY(-100px) rotate(20deg) scale(1.2)';
             document.getElementById('lid').style.opacity = '0';
             document.getElementById('bow').style.transform = 'translateY(-100px) rotate(20deg) scale(1.2)';
             document.getElementById('bow').style.opacity = '0';
             
-            // Fade out intro, fade in main site
             setTimeout(() => {
                 document.getElementById('intro-screen').style.opacity = '0';
                 setTimeout(() => {
@@ -358,35 +439,86 @@
                     const mainContent = document.getElementById('main-content');
                     mainContent.style.opacity = '1';
                     mainContent.style.pointerEvents = 'auto';
-                    
-                    // Start typewriter effect after site reveals
                     setTimeout(typeWriter, 500);
                 }, 1000);
             }, 600);
         }
 
-        // Interactive Magic Hearts on Click
+        // Floating Hearts on screen click
         document.addEventListener('click', function(e) {
-            // Don't spawn hearts if clicking the gift intro
             if(document.getElementById('intro-screen').style.display !== 'none') return;
+            // Prevent hearts from spawning when clicking a polaroid or modal
+            if(e.target.closest('.polaroid') || e.target.closest('#polaroid-modal')) return; 
 
             const heart = document.createElement('div');
             heart.classList.add('floating-heart');
-            
-            // Randomly choose between a heart or sparkle emoji
             const emojis = ['💜', '💙', '✨', '💖'];
             heart.innerText = emojis[Math.floor(Math.random() * emojis.length)];
-            
             heart.style.left = (e.clientX - 15) + 'px';
             heart.style.top = (e.clientY - 15) + 'px';
             
             document.body.appendChild(heart);
-            
-            // Remove the element after animation ends
-            setTimeout(() => {
-                heart.remove();
-            }, 1500);
+            setTimeout(() => { heart.remove(); }, 1500);
         });
+
+        // --- Polaroid Pop-up & Emoji Rain Logic ---
+        let rainInterval;
+
+        function openPolaroid(el) {
+            // Get data from clicked polaroid
+            const imgSrc = el.querySelector('img').src;
+            const caption = el.querySelector('.polaroid-caption').innerText;
+            const extraMsg = el.getAttribute('data-extramsg');
+
+            // Set data in modal
+            document.getElementById('modal-img').src = imgSrc;
+            document.getElementById('modal-caption').innerText = caption;
+            document.getElementById('modal-extra-msg').innerText = extraMsg;
+
+            // Show Modal
+            const modal = document.getElementById('polaroid-modal');
+            modal.style.display = 'flex';
+            setTimeout(() => { 
+                modal.style.opacity = '1'; 
+                modal.classList.add('show');
+            }, 10);
+
+            startEmojiRain();
+        }
+
+        function closePolaroid(event) {
+            const modal = document.getElementById('polaroid-modal');
+            modal.style.opacity = '0';
+            modal.classList.remove('show');
+            setTimeout(() => { modal.style.display = 'none'; }, 400);
+            stopEmojiRain();
+        }
+
+        function startEmojiRain() {
+            const container = document.getElementById('emoji-rain-container');
+            container.innerHTML = ''; 
+            const emojis = ['🎂', '💖', '✨', '🎉', '💜', '🥳', '🎁'];
+            
+            rainInterval = setInterval(() => {
+                const emoji = document.createElement('div');
+                emoji.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+                emoji.classList.add('falling-emoji');
+                
+                // Random position and fall speed
+                emoji.style.left = Math.random() * 100 + 'vw';
+                emoji.style.animationDuration = (Math.random() * 3 + 2) + 's'; // falls between 2 to 5 seconds
+                
+                container.appendChild(emoji);
+                
+                // Clean up emoji after it falls
+                setTimeout(() => emoji.remove(), 5000);
+            }, 150); // Create a new emoji every 150ms
+        }
+
+        function stopEmojiRain() {
+            clearInterval(rainInterval);
+            document.getElementById('emoji-rain-container').innerHTML = ''; // clear all immediately
+        }
     </script>
 </body>
 </html>
