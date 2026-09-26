@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Happy Birthday!</title>
-    <!-- Updated Google Fonts to match the elegant, high-contrast serif vibe -->
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -23,11 +22,20 @@
         }
 
         body {
-            background: #050414 url('spacebg.gif') center center / cover no-repeat fixed;
+            background-color: var(--bg-color);
             color: var(--text-main);
             font-family: 'Poppins', sans-serif;
             overflow-x: hidden;
             min-height: 100vh;
+        }
+
+        /* --- Mobile-Optimized Background Layer --- 
+           This fixes mobile zooming bugs and perfectly locks the center of the GIF */
+        #bg-image {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: url('spacebg.gif') center center / cover no-repeat;
+            z-index: -2;
         }
 
         #bg-overlay {
@@ -36,7 +44,7 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(135deg, rgba(5, 4, 20, 0.5), rgba(30, 15, 55, 0.4));
-            z-index: 0;
+            z-index: -1;
             pointer-events: none;
         }
 
@@ -60,6 +68,8 @@
             color: var(--text-highlight);
             margin-bottom: 30px;
             text-shadow: 0 0 10px rgba(255, 107, 240, 0.5);
+            text-align: center;
+            padding: 0 20px;
         }
 
         .gift-box {
@@ -303,7 +313,7 @@
             display: none; 
             position: fixed; 
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(5, 4, 20, 0.85);
+            background: rgba(5, 4, 20, 0.9);
             z-index: 200;
             justify-content: center; 
             align-items: center; 
@@ -386,18 +396,68 @@
             to { transform: translateY(110vh) rotate(360deg); }
         }
 
-        @media (max-width: 600px) {
-            body {
-                background-position: center center;
-                background-attachment: scroll;
+        /* =========================================
+           MOBILE OPTIMIZATION (PHONES & TABLETS)
+           ========================================= */
+        @media (max-width: 768px) {
+            #main-content {
+                padding: 20px 15px;
+                gap: 25px;
             }
-            h1 { font-size: 2.5rem; }
-            .glass-panel { padding: 25px; }
+            .glass-panel {
+                padding: 25px 20px;
+            }
+            .intro-text {
+                font-size: 2rem;
+            }
+            h1 {
+                font-size: 2.2rem;
+                letter-spacing: 1px;
+            }
+            .letter-content {
+                font-size: 1rem;
+            }
+            .letter-signoff {
+                font-size: 1.6rem;
+            }
+            .gallery-title {
+                font-size: 2.2rem;
+                letter-spacing: 1px;
+            }
+            .gallery-grid {
+                /* Allows photos to shrink slightly to fit smaller screens perfectly */
+                grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+                gap: 20px;
+            }
+            .polaroid {
+                padding: 12px 12px 25px 12px;
+            }
+            .polaroid img {
+                height: 220px;
+            }
+            .timeline-container {
+                padding: 40px 10px;
+                gap: 25px;
+            }
+            .hanging-polaroid {
+                flex: 0 0 240px; /* Shrinks timeline photos for mobile */
+            }
+            .string-line {
+                top: 55px; /* Adjusts the string to match new photo heights */
+            }
+            #modal-caption {
+                font-size: 1.8rem;
+            }
+            #modal-extra-msg {
+                font-size: 1rem;
+            }
         }
     </style>
 </head>
 <body>
     
+    <!-- Deep locked background layer for perfect mobile scaling -->
+    <div id="bg-image"></div>
     <div id="bg-overlay" aria-hidden="true"></div>
 
     <div id="intro-screen">
