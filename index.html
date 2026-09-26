@@ -22,7 +22,6 @@
         }
 
         body {
-            /* Background updated to use your GIF */
             background: #050414 url('spacebg.gif') center center / cover no-repeat fixed;
             color: var(--text-main);
             font-family: 'Poppins', sans-serif;
@@ -30,7 +29,6 @@
             min-height: 100vh;
         }
 
-        /* Deep space blue/purple tint keeps everything readable over the GIF */
         #bg-overlay {
             position: fixed;
             inset: 0;
@@ -70,7 +68,16 @@
             border-radius: 8px;
             cursor: pointer;
             box-shadow: 0 10px 30px rgba(164, 43, 204, 0.6);
-            animation: bounce 2s infinite;
+            /* Smooth floating animation */
+            animation: float 3.5s ease-in-out infinite;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        /* Hover effect makes the box grow and glow bright orange */
+        .gift-box:hover {
+            transform: scale(1.08);
+            box-shadow: 0 15px 45px rgba(255, 140, 0, 0.5);
+            animation-play-state: paused; 
         }
 
         .gift-lid {
@@ -79,7 +86,7 @@
             background: linear-gradient(135deg, #481173, #8a2be2);
             border-radius: 5px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            transition: transform 0.5s ease;
+            transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s ease;
         }
 
         .gift-ribbon-v {
@@ -103,12 +110,13 @@
             background: transparent;
             border: 8px solid #ff8c00;
             border-radius: 50px 50px 0 0;
-            transition: transform 0.5s ease;
+            transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s ease;
         }
 
-        @keyframes bounce {
+        /* Replaced sharp bounce with a gentle float */
+        @keyframes float {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
+            50% { transform: translateY(-12px); }
         }
 
         /* --- Main Content Layout --- */
@@ -126,7 +134,6 @@
             gap: 40px;
         }
 
-        /* --- Frosted Glass Containers --- */
         .glass-panel {
             background: var(--glass-bg);
             backdrop-filter: blur(10px);
@@ -137,7 +144,6 @@
             box-shadow: var(--neon-glow);
         }
 
-        /* --- Typewriter Section --- */
         h1 {
             font-family: 'Caveat', cursive;
             font-size: 3.5rem;
@@ -168,7 +174,6 @@
             50% { opacity: 0; }
         }
 
-        /* --- Letter Section --- */
         .letter-content {
             font-size: 1.1rem;
             line-height: 1.7;
@@ -183,7 +188,6 @@
             margin-top: 20px;
         }
 
-        /* --- Photo Gallery --- */
         .gallery-title {
             text-align: center;
             font-family: 'Caveat', cursive;
@@ -233,7 +237,6 @@
             color: var(--text-main);
         }
 
-        /* --- Timeline Section --- */
         .timeline-container {
             position: relative;
             width: 100%;
@@ -292,7 +295,6 @@
             100% { transform: rotate(4deg); }
         }
 
-        /* --- Pop-up Modal for Polaroids --- */
         #polaroid-modal {
             display: none; 
             position: fixed; 
@@ -350,7 +352,6 @@
             margin: 0 auto;
         }
 
-        /* --- Interactive & Rain Emojis --- */
         .floating-heart {
             position: absolute;
             font-size: 1.5rem;
@@ -531,11 +532,16 @@
             let audio = document.getElementById("bg-music");
             if(audio) audio.play().catch(e => console.log("Music play prevented by browser"));
             
-            document.getElementById('lid').style.transform = 'translateY(-100px) rotate(20deg) scale(1.2)';
+            // Pop the lid off dynamically
+            document.getElementById('lid').style.transform = 'translateY(-120px) rotate(25deg) translateX(40px)';
             document.getElementById('lid').style.opacity = '0';
-            document.getElementById('bow').style.transform = 'translateY(-100px) rotate(20deg) scale(1.2)';
+            document.getElementById('bow').style.transform = 'translateY(-120px) rotate(25deg) translateX(40px)';
             document.getElementById('bow').style.opacity = '0';
             
+            // Trigger the emoji explosion
+            createExplosion();
+
+            // Delay the screen fade so the user can enjoy the explosion
             setTimeout(() => {
                 document.getElementById('intro-screen').style.opacity = '0';
                 setTimeout(() => {
@@ -545,7 +551,46 @@
                     mainContent.style.pointerEvents = 'auto';
                     setTimeout(typeWriter, 500);
                 }, 1000);
-            }, 600);
+            }, 800);
+        }
+
+        // Logic for the creative emoji burst
+        function createExplosion() {
+            const box = document.querySelector('.gift-box').getBoundingClientRect();
+            const startX = box.left + box.width / 2;
+            const startY = box.top + box.height / 2;
+            
+            const emojis = ['🎉', '🎁', '✨', '💖', '🚀', '💫', '🎂', '☄️'];
+            
+            // Create 30 exploding particles
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+                particle.style.position = 'fixed';
+                particle.style.left = startX + 'px';
+                particle.style.top = startY + 'px';
+                particle.style.fontSize = (Math.random() * 24 + 16) + 'px';
+                particle.style.pointerEvents = 'none';
+                particle.style.zIndex = '150';
+                particle.style.transition = 'all 0.8s cubic-bezier(0.1, 0.8, 0.3, 1)';
+                
+                document.body.appendChild(particle);
+
+                // Math to explode them in a perfect 360-degree circle
+                const angle = Math.random() * Math.PI * 2;
+                const distance = Math.random() * 200 + 80;
+                const tx = Math.cos(angle) * distance;
+                const ty = Math.sin(angle) * distance;
+
+                // Animate immediately
+                setTimeout(() => {
+                    particle.style.transform = `translate(${tx}px, ${ty}px) rotate(${Math.random() * 720}deg) scale(0)`;
+                    particle.style.opacity = '0';
+                }, 10);
+
+                // Clean up the DOM
+                setTimeout(() => particle.remove(), 800);
+            }
         }
 
         document.addEventListener('click', function(e) {
