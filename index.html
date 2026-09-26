@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Happy Birthday!</title>
-    <!-- Updated Google Fonts: League Spartan, Bebas Neue, and Montserrat -->
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=League+Spartan:wght@600;800&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- Cozy, sleek, and aesthetic Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Fredoka:wght@500;600&family=Quicksand:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-color: #050414;
@@ -25,8 +25,8 @@
         body {
             background-color: var(--bg-color);
             color: var(--text-main);
-            /* Normal text uses Montserrat for readability */
-            font-family: 'Montserrat', sans-serif;
+            /* Soothing, modern, and sleek body text */
+            font-family: 'Quicksand', sans-serif;
             overflow-x: hidden;
             min-height: 100vh;
         }
@@ -62,12 +62,14 @@
         }
 
         .intro-text {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 3.5rem;
-            letter-spacing: 2px;
+            /* Cute, rounded, modern header font */
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 600;
+            font-size: 3rem;
+            letter-spacing: 1px;
             color: var(--text-highlight);
             margin-bottom: 30px;
-            text-shadow: 0 0 10px rgba(255, 107, 240, 0.5);
+            text-shadow: 0 0 12px rgba(255, 107, 240, 0.6);
             text-align: center;
             padding: 0 20px;
         }
@@ -154,10 +156,10 @@
         }
 
         h1 {
-            font-family: 'League Spartan', sans-serif;
-            font-weight: 800;
-            letter-spacing: -1px;
-            font-size: 3.5rem;
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            font-size: 3.2rem;
             color: #fff;
             text-align: center;
             margin-bottom: 20px;
@@ -168,9 +170,9 @@
         }
 
         #typewriter-text {
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             line-height: 1.8;
-            font-weight: 400;
+            font-weight: 500;
             min-height: 100px; 
         }
         
@@ -187,16 +189,16 @@
         }
 
         .letter-content {
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             line-height: 1.8;
-            font-weight: 400;
+            font-weight: 500;
             text-align: justify;
         }
 
         .letter-signoff {
-            font-family: 'Bebas Neue', sans-serif;
+            /* Cute handwriting for the signature */
+            font-family: 'Caveat', cursive;
             font-size: 2.2rem;
-            letter-spacing: 1px;
             color: var(--text-highlight);
             text-align: right;
             margin-top: 25px;
@@ -204,10 +206,9 @@
 
         .gallery-title {
             text-align: center;
-            font-family: 'League Spartan', sans-serif;
-            font-weight: 800;
-            letter-spacing: -1px;
-            font-size: 3.2rem;
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 600;
+            font-size: 2.8rem;
             margin-bottom: 30px;
             color: var(--text-highlight);
         }
@@ -247,9 +248,9 @@
         }
 
         .polaroid-caption {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.8rem;
-            letter-spacing: 1px;
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 500;
+            font-size: 1.4rem;
             text-align: center;
             color: var(--text-main);
         }
@@ -355,18 +356,18 @@
         }
         
         #modal-caption {
-            font-family: 'League Spartan', sans-serif;
-            font-weight: 800;
-            font-size: 2.5rem;
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 600;
+            font-size: 2.2rem;
             color: var(--text-highlight);
             margin-bottom: 10px;
         }
 
         #modal-extra-msg { 
-            font-family: 'Montserrat', sans-serif;
+            font-family: 'Quicksand', sans-serif;
             font-size: 1.1rem; 
             color: var(--text-main); 
-            font-weight: 400;
+            font-weight: 500;
             max-width: 400px;
             margin: 0 auto;
         }
@@ -421,10 +422,10 @@
                 font-size: 1rem;
             }
             .letter-signoff {
-                font-size: 1.8rem;
+                font-size: 2rem;
             }
             .gallery-title {
-                font-size: 2.4rem;
+                font-size: 2.2rem;
             }
             .gallery-grid {
                 grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -437,7 +438,7 @@
                 height: 220px;
             }
             .polaroid-caption {
-                font-size: 1.5rem;
+                font-size: 1.3rem;
             }
             .timeline-container {
                 padding: 40px 10px;
@@ -450,7 +451,7 @@
                 top: 55px; 
             }
             #modal-caption {
-                font-size: 2rem;
+                font-size: 1.8rem;
             }
             #modal-extra-msg {
                 font-size: 1rem;
@@ -460,7 +461,6 @@
 </head>
 <body>
     
-    <!-- Deep locked background layer for perfect mobile scaling -->
     <div id="bg-image"></div>
     <div id="bg-overlay" aria-hidden="true"></div>
 
@@ -477,7 +477,7 @@
     <div id="main-content">
         
         <div class="glass-panel">
-            <h1>Happy Birthday, <span class="highlight">Achuuu!</span></h1>
+            <h1>Happy Birthday, <span class="highlight">Bestie!</span></h1>
             <div id="typewriter-text"></div>
         </div>
 
