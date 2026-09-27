@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Happy Birthday!</title>
-    <!-- Cute and aesthetic fonts from the provided image -->
+    <!-- Cute and aesthetic fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=Bad+Script&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -25,7 +25,6 @@
         body {
             background-color: var(--bg-color);
             color: var(--text-main);
-            /* Body text uses Bad Script for a handwritten letter feel */
             font-family: 'Bad Script', cursive;
             overflow-x: hidden;
             min-height: 100vh;
@@ -201,13 +200,23 @@
             margin-top: 25px;
         }
 
+        /* --- Glass Pane Titles --- */
         .gallery-title {
             text-align: center;
             font-family: 'Dancing Script', cursive;
             font-weight: 700;
             font-size: 3.5rem;
-            margin-bottom: 30px;
             color: var(--text-highlight);
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 15px 40px;
+            box-shadow: var(--neon-glow);
+            margin: 0 auto 10px auto; 
+            width: fit-content;
+            max-width: 100%;
         }
 
         .gallery-grid {
@@ -217,6 +226,7 @@
         }
 
         .polaroid {
+            position: relative; /* Added for absolute positioning of like button */
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(8px);
             border: 1px solid var(--glass-border);
@@ -253,6 +263,7 @@
             color: var(--text-main);
         }
 
+        /* --- Interactive Timeline Section --- */
         .timeline-container {
             position: relative;
             width: 100%;
@@ -293,17 +304,52 @@
 
         .hanging-polaroid:hover {
             animation-play-state: paused;
-            transform: scale(1.05) rotate(0deg) !important;
+            /* Cuter hover effect: it lifts up slightly */
+            transform: scale(1.08) rotate(0deg) translateY(-10px) !important;
+            box-shadow: 0 15px 45px rgba(255, 107, 240, 0.6);
             z-index: 10;
         }
 
-        .clip {
+        /* Cute Washi Tape implementation */
+        .washi-tape {
             position: absolute;
-            top: -25px;
+            top: -15px;
             left: 50%;
-            transform: translateX(-50%);
-            font-size: 2rem;
-            z-index: 2;
+            width: 80px;
+            height: 25px;
+            background: rgba(255, 107, 240, 0.5); /* Magenta */
+            backdrop-filter: blur(4px);
+            border-radius: 2px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2), inset 0 0 4px rgba(255,255,255,0.3);
+            transform: translateX(-50%) rotate(-4deg);
+            z-index: 5;
+        }
+
+        .hanging-polaroid:nth-child(even) .washi-tape {
+            background: rgba(162, 136, 255, 0.5); /* Purple */
+            transform: translateX(-50%) rotate(3deg);
+        }
+
+        .hanging-polaroid:nth-child(3n) .washi-tape {
+            background: rgba(255, 140, 0, 0.4); /* Orange */
+            transform: translateX(-50%) rotate(-2deg);
+            width: 90px;
+        }
+
+        /* Interactive Like Button */
+        .like-btn {
+            position: absolute;
+            bottom: 12px;
+            right: 15px;
+            font-size: 1.8rem;
+            cursor: pointer;
+            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 15;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4));
+        }
+
+        .like-btn:hover {
+            transform: scale(1.2);
         }
 
         @keyframes swing {
@@ -399,9 +445,7 @@
             to { transform: translateY(110vh) rotate(360deg); }
         }
 
-        /* =========================================
-           MOBILE OPTIMIZATION (PHONES & TABLETS)
-           ========================================= */
+        /* Mobile Optimization */
         @media (max-width: 768px) {
             #main-content {
                 padding: 20px 15px;
@@ -424,6 +468,7 @@
             }
             .gallery-title {
                 font-size: 2.8rem;
+                padding: 15px 25px; 
             }
             .gallery-grid {
                 grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -492,31 +537,37 @@
             <div class="polaroid" onclick="openPolaroid(this)" data-extramsg="I remember this day so clearly. We couldn't stop laughing at dinner!">
                 <img src="https://images.unsplash.com/photo-1517456793572-1d8efd6dc135?auto=format&fit=crop&w=500&q=60" alt="Memory 1">
                 <div class="polaroid-caption">That one crazy night out!</div>
+                <div class="like-btn" onclick="popHeart(event, this)">🤍</div>
             </div>
 
             <div class="polaroid" onclick="openPolaroid(this)" data-extramsg="You always know how to make me smile even when I'm down.">
                 <img src="https://images.unsplash.com/photo-1529156069898-49953eb1b5ae?auto=format&fit=crop&w=500&q=60" alt="Memory 2">
                 <div class="polaroid-caption">Always laughing together</div>
+                <div class="like-btn" onclick="popHeart(event, this)">🤍</div>
             </div>
 
             <div class="polaroid" onclick="openPolaroid(this)" data-extramsg="Definitely going to tell our kids about this trip one day.">
                 <img src="https://images.unsplash.com/photo-1506869640319-baa1f2d26fdf?auto=format&fit=crop&w=500&q=60" alt="Memory 3">
                 <div class="polaroid-caption">Core memory unlocked</div>
+                <div class="like-btn" onclick="popHeart(event, this)">🤍</div>
             </div>
 
             <div class="polaroid" onclick="openPolaroid(this)" data-extramsg="We took about 50 photos before we got this perfect one haha.">
                 <img src="https://images.unsplash.com/photo-1523456722899-73893693246a?auto=format&fit=crop&w=500&q=60" alt="Memory 4">
                 <div class="polaroid-caption">Selfie queens</div>
+                <div class="like-btn" onclick="popHeart(event, this)">🤍</div>
             </div>
 
             <div class="polaroid" onclick="openPolaroid(this)" data-extramsg="We didn't even plan to match this day, it was pure fate!">
                 <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=500&q=60" alt="Memory 5">
                 <div class="polaroid-caption">Matching outfits vibes</div>
+                <div class="like-btn" onclick="popHeart(event, this)">🤍</div>
             </div>
 
             <div class="polaroid" onclick="openPolaroid(this)" data-extramsg="I am so lucky to have you in my life. Let's make more memories!">
                 <img src="https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=500&q=60" alt="Memory 6">
                 <div class="polaroid-caption">To many more years!</div>
+                <div class="like-btn" onclick="popHeart(event, this)">🤍</div>
             </div>
 
         </div>
@@ -533,33 +584,38 @@
             <div class="string-line"></div>
             
             <div class="hanging-polaroid polaroid" onclick="openPolaroid(this)" data-extramsg="Our very first road trip!<br><br>We got so lost but it was the best day ever.">
-                <div class="clip">📍</div>
+                <div class="washi-tape"></div>
                 <img src="https://images.unsplash.com/photo-1504609774796-6e2730cefbbe?auto=format&fit=crop&w=500&q=60" alt="Timeline 1">
                 <div class="polaroid-caption">Where it started</div>
+                <div class="like-btn" onclick="popHeart(event, this)">🤍</div>
             </div>
 
             <div class="hanging-polaroid polaroid" onclick="openPolaroid(this)" data-extramsg="I love this photo of us so much.<br><br>You look so happy here.">
-                <div class="clip">📎</div>
+                <div class="washi-tape"></div>
                 <img src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=500&q=60" alt="Timeline 2">
                 <div class="polaroid-caption">That summer</div>
+                <div class="like-btn" onclick="popHeart(event, this)">🤍</div>
             </div>
 
             <div class="hanging-polaroid polaroid" onclick="openPolaroid(this)" data-extramsg="Remember this dinner?<br><br>The food was amazing and the company was even better.">
-                <div class="clip">📍</div>
+                <div class="washi-tape"></div>
                 <img src="https://images.unsplash.com/photo-1522262590532-a991489a0253?auto=format&fit=crop&w=500&q=60" alt="Timeline 3">
                 <div class="polaroid-caption">Celebrations</div>
+                <div class="like-btn" onclick="popHeart(event, this)">🤍</div>
             </div>
 
             <div class="hanging-polaroid polaroid" onclick="openPolaroid(this)" data-extramsg="Such a cozy day inside.<br><br>Just watching movies and hanging out.">
-                <div class="clip">📎</div>
+                <div class="washi-tape"></div>
                 <img src="https://images.unsplash.com/photo-1517457373958-b7bdd4587205?auto=format&fit=crop&w=500&q=60" alt="Timeline 4">
                 <div class="polaroid-caption">Cozy vibes</div>
+                <div class="like-btn" onclick="popHeart(event, this)">🤍</div>
             </div>
 
             <div class="hanging-polaroid polaroid" onclick="openPolaroid(this)" data-extramsg="Here's to right now.<br><br>Happy birthday again!">
-                <div class="clip">📍</div>
+                <div class="washi-tape"></div>
                 <img src="https://images.unsplash.com/photo-1516962215378-7fa2e137ae93?auto=format&fit=crop&w=500&q=60" alt="Timeline 5">
                 <div class="polaroid-caption">Present day</div>
+                <div class="like-btn" onclick="popHeart(event, this)">🤍</div>
             </div>
         </div>
 
@@ -657,9 +713,50 @@
             }
         }
 
+        /* Logic for the interactive Like button */
+        function popHeart(e, btn) {
+            e.stopPropagation(); // Prevents the image modal from opening when they just want to like the photo!
+            
+            if (btn.innerText === '🤍') {
+                btn.innerText = '💖';
+                btn.style.transform = 'scale(1.3)';
+                setTimeout(() => btn.style.transform = 'scale(1)', 200);
+                
+                // Mini heart explosion effect
+                for(let i=0; i<6; i++) {
+                    let heart = document.createElement('div');
+                    heart.innerText = '💖';
+                    heart.style.position = 'fixed';
+                    heart.style.left = e.clientX + 'px';
+                    heart.style.top = e.clientY + 'px';
+                    heart.style.fontSize = (Math.random() * 15 + 10) + 'px';
+                    heart.style.pointerEvents = 'none';
+                    heart.style.zIndex = '9999';
+                    heart.style.transition = 'all 0.6s ease-out';
+                    
+                    document.body.appendChild(heart);
+                    heart.getBoundingClientRect(); // force reflow
+                    
+                    setTimeout(() => {
+                        let tx = (Math.random() - 0.5) * 120;
+                        let ty = (Math.random() - 1) * 120; // shoot upwards
+                        heart.style.transform = `translate(${tx}px, ${ty}px) scale(0) rotate(${Math.random() * 90}deg)`;
+                        heart.style.opacity = '0';
+                    }, 10);
+                    
+                    setTimeout(() => heart.remove(), 600);
+                }
+            } else {
+                btn.innerText = '🤍';
+                btn.style.transform = 'scale(0.9)';
+                setTimeout(() => btn.style.transform = 'scale(1)', 150);
+            }
+        }
+
         document.addEventListener('click', function(e) {
             if(document.getElementById('intro-screen').style.display !== 'none') return;
             if(e.target.closest('.polaroid') || e.target.closest('#polaroid-modal')) return; 
+            if(e.target.classList.contains('like-btn')) return;
 
             const heart = document.createElement('div');
             heart.classList.add('floating-heart');
