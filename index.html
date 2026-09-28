@@ -226,7 +226,7 @@
         }
 
         .polaroid {
-            position: relative; /* Added for absolute positioning of like button */
+            position: relative; 
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(8px);
             border: 1px solid var(--glass-border);
@@ -304,20 +304,18 @@
 
         .hanging-polaroid:hover {
             animation-play-state: paused;
-            /* Cuter hover effect: it lifts up slightly */
             transform: scale(1.08) rotate(0deg) translateY(-10px) !important;
             box-shadow: 0 15px 45px rgba(255, 107, 240, 0.6);
             z-index: 10;
         }
 
-        /* Cute Washi Tape implementation */
         .washi-tape {
             position: absolute;
             top: -15px;
             left: 50%;
             width: 80px;
             height: 25px;
-            background: rgba(255, 107, 240, 0.5); /* Magenta */
+            background: rgba(255, 107, 240, 0.5); 
             backdrop-filter: blur(4px);
             border-radius: 2px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.2), inset 0 0 4px rgba(255,255,255,0.3);
@@ -326,17 +324,16 @@
         }
 
         .hanging-polaroid:nth-child(even) .washi-tape {
-            background: rgba(162, 136, 255, 0.5); /* Purple */
+            background: rgba(162, 136, 255, 0.5); 
             transform: translateX(-50%) rotate(3deg);
         }
 
         .hanging-polaroid:nth-child(3n) .washi-tape {
-            background: rgba(255, 140, 0, 0.4); /* Orange */
+            background: rgba(255, 140, 0, 0.4); 
             transform: translateX(-50%) rotate(-2deg);
             width: 90px;
         }
 
-        /* Interactive Like Button */
         .like-btn {
             position: absolute;
             bottom: 12px;
@@ -357,6 +354,38 @@
             100% { transform: rotate(4deg); }
         }
 
+        /* --- New Secret Letter Button --- */
+        .envelope-btn {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 107, 240, 0.5);
+            border-radius: 50px;
+            padding: 20px 40px;
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.8rem;
+            color: var(--text-highlight);
+            text-align: center;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(255, 107, 240, 0.4);
+            animation: pulse 2s infinite;
+            margin: 20px auto 40px auto;
+            width: fit-content;
+            transition: all 0.3s ease;
+        }
+
+        .envelope-btn:hover {
+            transform: scale(1.05);
+            background: rgba(255, 107, 240, 0.15);
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 15px rgba(255, 107, 240, 0.4); }
+            50% { box-shadow: 0 0 35px rgba(255, 107, 240, 0.8); }
+            100% { box-shadow: 0 0 15px rgba(255, 107, 240, 0.4); }
+        }
+
+        /* --- Hidden Modals (Polaroid & Letter) --- */
         #polaroid-modal {
             display: none; 
             position: fixed; 
@@ -416,6 +445,84 @@
             margin: 0 auto;
         }
 
+        /* The Secret Letter Modal */
+        #letter-modal {
+            display: none; 
+            position: fixed; 
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(5, 4, 20, 0.95); /* Slightly darker for reading */
+            z-index: 300;
+            justify-content: center; 
+            align-items: center; 
+            opacity: 0; 
+            transition: opacity 0.5s ease;
+        }
+
+        .letter-modal-content {
+            background: rgba(30, 20, 50, 0.7); /* Deep warm glass */
+            backdrop-filter: blur(25px);
+            border: 1px solid var(--text-highlight);
+            border-radius: 15px;
+            width: 90%; 
+            max-width: 650px; 
+            max-height: 85vh; /* Prevents it from going off-screen */
+            padding: 40px; 
+            overflow-y: auto; /* Allows infinite scrolling inside */
+            box-shadow: 0 0 40px rgba(255, 107, 240, 0.3);
+            transform: translateY(50px); 
+            transition: transform 0.5s ease;
+            position: relative;
+        }
+
+        /* Custom scrollbar for the letter */
+        .letter-modal-content::-webkit-scrollbar { width: 8px; }
+        .letter-modal-content::-webkit-scrollbar-thumb { background: var(--text-highlight); border-radius: 10px; }
+
+        #letter-modal.show .letter-modal-content {
+            transform: translateY(0);
+        }
+
+        .close-btn {
+            position: absolute; 
+            top: 15px; 
+            right: 25px;
+            font-size: 2rem; 
+            color: var(--text-main); 
+            cursor: pointer;
+            font-family: sans-serif; 
+            opacity: 0.7; 
+            transition: opacity 0.2s;
+        }
+
+        .close-btn:hover { 
+            opacity: 1; 
+            color: var(--text-highlight); 
+        }
+        
+        .letter-modal-title { 
+            font-family: 'Dancing Script', cursive; 
+            font-size: 3.5rem; 
+            color: var(--text-highlight); 
+            margin-bottom: 25px; 
+        }
+        
+        .letter-modal-body { 
+            font-family: 'Bad Script', cursive; 
+            font-size: 1.5rem; 
+            line-height: 1.8; 
+            color: var(--text-main); 
+            text-align: justify; 
+        }
+        
+        .letter-modal-signoff { 
+            font-family: 'Dancing Script', cursive; 
+            font-size: 2.8rem; 
+            color: var(--text-highlight); 
+            text-align: right; 
+            margin-top: 40px; 
+        }
+
+        /* Miscellaneous Emojis */
         .floating-heart {
             position: absolute;
             font-size: 1.5rem;
@@ -447,58 +554,25 @@
 
         /* Mobile Optimization */
         @media (max-width: 768px) {
-            #main-content {
-                padding: 20px 15px;
-                gap: 25px;
-            }
-            .glass-panel {
-                padding: 25px 20px;
-            }
-            .intro-text {
-                font-size: 3rem;
-            }
-            h1 {
-                font-size: 3rem;
-            }
-            .letter-content, #typewriter-text {
-                font-size: 1.2rem;
-            }
-            .letter-signoff {
-                font-size: 2.2rem;
-            }
-            .gallery-title {
-                font-size: 2.8rem;
-                padding: 15px 25px; 
-            }
-            .gallery-grid {
-                grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-                gap: 20px;
-            }
-            .polaroid {
-                padding: 12px 12px 25px 12px;
-            }
-            .polaroid img {
-                height: 220px;
-            }
-            .polaroid-caption {
-                font-size: 1.8rem;
-            }
-            .timeline-container {
-                padding: 40px 10px;
-                gap: 25px;
-            }
-            .hanging-polaroid {
-                flex: 0 0 240px; 
-            }
-            .string-line {
-                top: 55px; 
-            }
-            #modal-caption {
-                font-size: 2.5rem;
-            }
-            #modal-extra-msg {
-                font-size: 1.2rem;
-            }
+            #main-content { padding: 20px 15px; gap: 25px; }
+            .glass-panel { padding: 25px 20px; }
+            .intro-text, h1 { font-size: 3rem; }
+            .letter-content, #typewriter-text { font-size: 1.2rem; }
+            .letter-signoff { font-size: 2.2rem; }
+            .gallery-title { font-size: 2.8rem; padding: 15px 25px; }
+            .gallery-grid { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+            .polaroid { padding: 12px 12px 25px 12px; }
+            .polaroid img { height: 220px; }
+            .polaroid-caption { font-size: 1.8rem; }
+            .timeline-container { padding: 40px 10px; gap: 25px; }
+            .hanging-polaroid { flex: 0 0 240px; }
+            .string-line { top: 55px; }
+            #modal-caption { font-size: 2.5rem; }
+            #modal-extra-msg { font-size: 1.2rem; }
+            .envelope-btn { font-size: 2.2rem; padding: 15px 30px; }
+            .letter-modal-content { padding: 30px 20px; }
+            .letter-modal-title { font-size: 2.8rem; }
+            .letter-modal-body { font-size: 1.2rem; }
         }
     </style>
 </head>
@@ -535,7 +609,7 @@
         <div class="gallery-grid">
             
             <div class="polaroid" onclick="openPolaroid(this)" data-extramsg="I remember this day so clearly. We couldn't stop laughing at dinner!">
-                <img src="pic1.jpeg" alt="Memory 1">
+                <img src="https://images.unsplash.com/photo-1517456793572-1d8efd6dc135?auto=format&fit=crop&w=500&q=60" alt="Memory 1">
                 <div class="polaroid-caption">That one crazy night out!</div>
                 <div class="like-btn" onclick="popHeart(event, this)">🤍</div>
             </div>
@@ -570,13 +644,6 @@
                 <div class="like-btn" onclick="popHeart(event, this)">🤍</div>
             </div>
 
-        </div>
-
-        <div class="glass-panel">
-            <div class="letter-content">
-                Before we take a walk down memory lane, I just want to pause and say how excited I am for all the new memories we are going to make this year. But for now, swipe through to see where our journey started...
-            </div>
-            <div class="letter-signoff">- Ready for the journey? </div>
         </div>
 
         <div class="gallery-title">Our Timeline</div>
@@ -619,8 +686,14 @@
             </div>
         </div>
 
+        <!-- The New Secret Letter Button -->
+        <div class="envelope-btn" onclick="openLetterModal()">
+            💌 A Secret Letter For You...
+        </div>
+
     </div>
 
+    <!-- Hidden Polaroid Image Modal -->
     <div id="polaroid-modal" onclick="closePolaroid(event)">
         <div class="modal-content" onclick="event.stopPropagation()">
             <img id="modal-img" src="" alt="">
@@ -629,10 +702,34 @@
         </div>
     </div>
 
+    <!-- NEW: Hidden Secret Letter Modal -->
+    <div id="letter-modal" onclick="closeLetterModal(event)">
+        <div class="letter-modal-content" onclick="event.stopPropagation()">
+            <div class="close-btn" onclick="closeLetterModal(event)">✖</div>
+            <div class="letter-modal-title">To my bestie,</div>
+            
+            <div class="letter-modal-body">
+                <!-- ============================================== -->
+                <!-- TYPE YOUR LONG PERSONAL LETTER HERE -->
+                <!-- ============================================== -->
+                
+                I saved the best for last. You can type as much as you want in this space! Write paragraphs, share your favorite inside jokes, or just remind them how much they mean to you. <br><br>
+                
+                Since this is a scrolling glass box, it won't ever ruin the look of your beautiful website, no matter how much you write. Take your time, pour your heart out, and make this a birthday they will never forget! <br><br>
+                
+                I am so incredibly proud of everything you have accomplished this year, and I can't wait to see what amazing things you do next. 
+
+                <!-- ============================================== -->
+            </div>
+            
+            <div class="letter-modal-signoff">- Forever yours, [Your Name] 💜</div>
+        </div>
+    </div>
+
     <div id="emoji-rain-container"></div>
 
     <audio id="bg-music" loop>
-        <source src="hangova.mp3" type="audio/mpeg">
+        <source src="song.mp3" type="audio/mpeg">
     </audio>
 
     <script>
@@ -713,16 +810,14 @@
             }
         }
 
-        /* Logic for the interactive Like button */
         function popHeart(e, btn) {
-            e.stopPropagation(); // Prevents the image modal from opening when they just want to like the photo!
+            e.stopPropagation(); 
             
             if (btn.innerText === '🤍') {
                 btn.innerText = '💖';
                 btn.style.transform = 'scale(1.3)';
                 setTimeout(() => btn.style.transform = 'scale(1)', 200);
                 
-                // Mini heart explosion effect
                 for(let i=0; i<6; i++) {
                     let heart = document.createElement('div');
                     heart.innerText = '💖';
@@ -735,11 +830,11 @@
                     heart.style.transition = 'all 0.6s ease-out';
                     
                     document.body.appendChild(heart);
-                    heart.getBoundingClientRect(); // force reflow
+                    heart.getBoundingClientRect(); 
                     
                     setTimeout(() => {
                         let tx = (Math.random() - 0.5) * 120;
-                        let ty = (Math.random() - 1) * 120; // shoot upwards
+                        let ty = (Math.random() - 1) * 120; 
                         heart.style.transform = `translate(${tx}px, ${ty}px) scale(0) rotate(${Math.random() * 90}deg)`;
                         heart.style.opacity = '0';
                     }, 10);
@@ -755,7 +850,7 @@
 
         document.addEventListener('click', function(e) {
             if(document.getElementById('intro-screen').style.display !== 'none') return;
-            if(e.target.closest('.polaroid') || e.target.closest('#polaroid-modal')) return; 
+            if(e.target.closest('.polaroid') || e.target.closest('#polaroid-modal') || e.target.closest('#letter-modal') || e.target.closest('.envelope-btn')) return; 
             if(e.target.classList.contains('like-btn')) return;
 
             const heart = document.createElement('div');
@@ -778,7 +873,6 @@
 
             document.getElementById('modal-img').src = imgSrc;
             document.getElementById('modal-caption').innerText = caption;
-            
             document.getElementById('modal-extra-msg').innerHTML = extraMsg;
 
             const modal = document.getElementById('polaroid-modal');
@@ -797,6 +891,47 @@
             modal.classList.remove('show');
             setTimeout(() => { modal.style.display = 'none'; }, 400);
             stopEmojiRain();
+        }
+
+        /* --- New Letter Modal Functions --- */
+        function openLetterModal() {
+            const modal = document.getElementById('letter-modal');
+            modal.style.display = 'flex';
+            setTimeout(() => { 
+                modal.style.opacity = '1'; 
+                modal.classList.add('show');
+            }, 10);
+
+            // Trigger a little star explosion for opening the letter
+            for(let i=0; i<15; i++) {
+                let star = document.createElement('div');
+                star.innerText = '✨';
+                star.style.position = 'fixed';
+                star.style.left = (window.innerWidth / 2) + 'px';
+                star.style.top = (window.innerHeight / 2) + 'px';
+                star.style.fontSize = (Math.random() * 20 + 15) + 'px';
+                star.style.pointerEvents = 'none';
+                star.style.zIndex = '9999';
+                star.style.transition = 'all 1s ease-out';
+                
+                document.body.appendChild(star);
+                star.getBoundingClientRect();
+                
+                setTimeout(() => {
+                    let tx = (Math.random() - 0.5) * window.innerWidth;
+                    let ty = (Math.random() - 0.5) * window.innerHeight; 
+                    star.style.transform = `translate(${tx}px, ${ty}px) scale(0) rotate(${Math.random() * 180}deg)`;
+                    star.style.opacity = '0';
+                }, 10);
+                setTimeout(() => star.remove(), 1000);
+            }
+        }
+
+        function closeLetterModal(event) {
+            const modal = document.getElementById('letter-modal');
+            modal.style.opacity = '0';
+            modal.classList.remove('show');
+            setTimeout(() => { modal.style.display = 'none'; }, 500);
         }
 
         function startEmojiRain() {
