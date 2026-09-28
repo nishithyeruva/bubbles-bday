@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Happy Birthday!</title>
-    <!-- Cute and aesthetic fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=Bad+Script&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet">
+    <!-- Comfortaa for soothing headings, Amatic & Bad Script for cute handwriting details -->
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=Bad+Script&family=Comfortaa:wght@600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-color: #050414;
@@ -61,14 +61,15 @@
         }
 
         .intro-text {
-            font-family: 'Dancing Script', cursive;
+            font-family: 'Comfortaa', sans-serif;
             font-weight: 700;
-            font-size: 3.5rem;
+            font-size: 2.5rem;
             color: var(--text-highlight);
             margin-bottom: 30px;
             text-shadow: 0 0 12px rgba(255, 107, 240, 0.6);
             text-align: center;
             padding: 0 20px;
+            letter-spacing: 1px;
         }
 
         .gift-box {
@@ -153,12 +154,13 @@
         }
 
         h1 {
-            font-family: 'Dancing Script', cursive;
+            font-family: 'Comfortaa', sans-serif;
             font-weight: 700;
-            font-size: 3.8rem;
+            font-size: 2.8rem;
             color: #fff;
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            letter-spacing: 1px;
         }
         
         .highlight {
@@ -192,9 +194,9 @@
         }
 
         .letter-signoff {
-            font-family: 'Dancing Script', cursive;
+            font-family: 'Bad Script', cursive;
             font-weight: 600;
-            font-size: 2.5rem;
+            font-size: 1.8rem;
             color: var(--text-highlight);
             text-align: right;
             margin-top: 25px;
@@ -203,15 +205,16 @@
         /* --- Glass Pane Titles --- */
         .gallery-title {
             text-align: center;
-            font-family: 'Dancing Script', cursive;
+            font-family: 'Comfortaa', sans-serif;
             font-weight: 700;
-            font-size: 3.5rem;
+            font-size: 2.5rem;
+            letter-spacing: 1.5px;
             color: var(--text-highlight);
             background: var(--glass-bg);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             border: 1px solid var(--glass-border);
-            border-radius: 20px;
+            border-radius: 30px;
             padding: 15px 40px;
             box-shadow: var(--neon-glow);
             margin: 0 auto 10px auto; 
@@ -354,7 +357,7 @@
             100% { transform: rotate(4deg); }
         }
 
-        /* --- New Secret Letter Button --- */
+        /* --- Secret Letter Button --- */
         .envelope-btn {
             background: var(--glass-bg);
             backdrop-filter: blur(10px);
@@ -362,8 +365,10 @@
             border: 1px solid rgba(255, 107, 240, 0.5);
             border-radius: 50px;
             padding: 20px 40px;
-            font-family: 'Dancing Script', cursive;
-            font-size: 2.8rem;
+            font-family: 'Comfortaa', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            letter-spacing: 1px;
             color: var(--text-highlight);
             text-align: center;
             cursor: pointer;
@@ -445,12 +450,12 @@
             margin: 0 auto;
         }
 
-        /* The Secret Letter Modal */
+        /* The Secret Letter Modal - Expanded for Desktop/Landscape */
         #letter-modal {
             display: none; 
             position: fixed; 
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(5, 4, 20, 0.95); /* Slightly darker for reading */
+            background: rgba(5, 4, 20, 0.95);
             z-index: 300;
             justify-content: center; 
             align-items: center; 
@@ -459,22 +464,24 @@
         }
 
         .letter-modal-content {
-            background: rgba(30, 20, 50, 0.7); /* Deep warm glass */
+            background: rgba(30, 20, 50, 0.7); 
             backdrop-filter: blur(25px);
             border: 1px solid var(--text-highlight);
             border-radius: 15px;
-            width: 90%; 
-            max-width: 650px; 
-            max-height: 85vh; /* Prevents it from going off-screen */
-            padding: 40px; 
-            overflow-y: auto; /* Allows infinite scrolling inside */
+            
+            /* Expanded size for landscape/desktop */
+            width: 95%; 
+            max-width: 900px; 
+            max-height: 92vh; 
+            padding: 50px 60px; /* More breathing room */
+            
+            overflow-y: auto; 
             box-shadow: 0 0 40px rgba(255, 107, 240, 0.3);
             transform: translateY(50px); 
             transition: transform 0.5s ease;
             position: relative;
         }
 
-        /* Custom scrollbar for the letter */
         .letter-modal-content::-webkit-scrollbar { width: 8px; }
         .letter-modal-content::-webkit-scrollbar-thumb { background: var(--text-highlight); border-radius: 10px; }
 
@@ -486,37 +493,42 @@
             position: absolute; 
             top: 15px; 
             right: 25px;
-            font-size: 2rem; 
+            font-size: 2.2rem; 
             color: var(--text-main); 
             cursor: pointer;
             font-family: sans-serif; 
             opacity: 0.7; 
             transition: opacity 0.2s;
+            z-index: 10;
         }
 
         .close-btn:hover { 
             opacity: 1; 
             color: var(--text-highlight); 
+            transform: scale(1.1);
         }
         
         .letter-modal-title { 
-            font-family: 'Dancing Script', cursive; 
-            font-size: 3.5rem; 
+            font-family: 'Comfortaa', sans-serif; 
+            font-weight: 700;
+            font-size: 2.5rem; 
             color: var(--text-highlight); 
-            margin-bottom: 25px; 
+            margin-bottom: 30px; 
+            margin-top: 10px;
         }
         
         .letter-modal-body { 
             font-family: 'Bad Script', cursive; 
-            font-size: 1.5rem; 
+            font-size: 1.6rem; /* Slightly larger text for the bigger box */
             line-height: 1.8; 
             color: var(--text-main); 
             text-align: justify; 
         }
         
         .letter-modal-signoff { 
-            font-family: 'Dancing Script', cursive; 
-            font-size: 2.8rem; 
+            font-family: 'Bad Script', cursive; 
+            font-weight: 600;
+            font-size: 2rem; 
             color: var(--text-highlight); 
             text-align: right; 
             margin-top: 40px; 
@@ -556,10 +568,11 @@
         @media (max-width: 768px) {
             #main-content { padding: 20px 15px; gap: 25px; }
             .glass-panel { padding: 25px 20px; }
-            .intro-text, h1 { font-size: 3rem; }
+            .intro-text { font-size: 2.2rem; }
+            h1 { font-size: 2.4rem; }
             .letter-content, #typewriter-text { font-size: 1.2rem; }
-            .letter-signoff { font-size: 2.2rem; }
-            .gallery-title { font-size: 2.8rem; padding: 15px 25px; }
+            .letter-signoff { font-size: 1.6rem; }
+            .gallery-title { font-size: 2.2rem; padding: 15px 25px; }
             .gallery-grid { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
             .polaroid { padding: 12px 12px 25px 12px; }
             .polaroid img { height: 220px; }
@@ -569,10 +582,18 @@
             .string-line { top: 55px; }
             #modal-caption { font-size: 2.5rem; }
             #modal-extra-msg { font-size: 1.2rem; }
-            .envelope-btn { font-size: 2.2rem; padding: 15px 30px; }
-            .letter-modal-content { padding: 30px 20px; }
-            .letter-modal-title { font-size: 2.8rem; }
+            .envelope-btn { font-size: 1.3rem; padding: 15px 30px; }
+            
+            /* Letter Modal optimized strictly for mobile phones */
+            .letter-modal-content { 
+                width: 90%;
+                max-height: 85vh; /* Keep it safe from browser bars */
+                padding: 30px 20px; /* Reduced padding for more text space */
+            }
+            .letter-modal-title { font-size: 2rem; margin-top: 5px; margin-bottom: 20px; }
             .letter-modal-body { font-size: 1.2rem; }
+            .letter-modal-signoff { font-size: 1.5rem; }
+            .close-btn { top: 10px; right: 15px; font-size: 1.8rem; }
         }
     </style>
 </head>
@@ -646,6 +667,13 @@
 
         </div>
 
+        <div class="glass-panel">
+            <div class="letter-content">
+                Before we take a walk down memory lane, I just want to pause and say how excited I am for all the new memories we are going to make this year. But for now, swipe through to see where our journey started...
+            </div>
+            <div class="letter-signoff">- Ready for the journey? </div>
+        </div>
+
         <div class="gallery-title">Our Timeline</div>
         <div class="timeline-container">
             <div class="string-line"></div>
@@ -686,7 +714,7 @@
             </div>
         </div>
 
-        <!-- The New Secret Letter Button -->
+        <!-- Secret Letter Button -->
         <div class="envelope-btn" onclick="openLetterModal()">
             💌 A Secret Letter For You...
         </div>
@@ -702,24 +730,18 @@
         </div>
     </div>
 
-    <!-- NEW: Hidden Secret Letter Modal -->
+    <!-- Hidden Secret Letter Modal -->
     <div id="letter-modal" onclick="closeLetterModal(event)">
         <div class="letter-modal-content" onclick="event.stopPropagation()">
             <div class="close-btn" onclick="closeLetterModal(event)">✖</div>
             <div class="letter-modal-title">To my bestie,</div>
             
             <div class="letter-modal-body">
-                <!-- ============================================== -->
-                <!-- TYPE YOUR LONG PERSONAL LETTER HERE -->
-                <!-- ============================================== -->
-                
                 I saved the best for last. You can type as much as you want in this space! Write paragraphs, share your favorite inside jokes, or just remind them how much they mean to you. <br><br>
                 
                 Since this is a scrolling glass box, it won't ever ruin the look of your beautiful website, no matter how much you write. Take your time, pour your heart out, and make this a birthday they will never forget! <br><br>
                 
                 I am so incredibly proud of everything you have accomplished this year, and I can't wait to see what amazing things you do next. 
-
-                <!-- ============================================== -->
             </div>
             
             <div class="letter-modal-signoff">- Forever yours, [Your Name] 💜</div>
@@ -893,7 +915,6 @@
             stopEmojiRain();
         }
 
-        /* --- New Letter Modal Functions --- */
         function openLetterModal() {
             const modal = document.getElementById('letter-modal');
             modal.style.display = 'flex';
@@ -902,7 +923,6 @@
                 modal.classList.add('show');
             }, 10);
 
-            // Trigger a little star explosion for opening the letter
             for(let i=0; i<15; i++) {
                 let star = document.createElement('div');
                 star.innerText = '✨';
